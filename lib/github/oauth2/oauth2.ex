@@ -13,6 +13,11 @@ defmodule BorsNG.GitHub.OAuth2 do
       strategy: BorsNG.GitHub.OAuth2,
       authorize_url: "#{github}/login/oauth/authorize",
       token_url: "#{github}/login/oauth/access_token",
+      request_opts: [
+        {:ssl_options, [
+          cacertfile: Confex.fetch_env!(:bors, :cacertfile)
+        ]}
+      ]
     ]
     :bors
     |> Confex.fetch_env!(BorsNG.GitHub.OAuth2)

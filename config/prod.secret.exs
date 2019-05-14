@@ -5,7 +5,12 @@ config :bors, BorsNG.Database.Repo,
   url: {:system, "DATABASE_URL"},
   pool_size: {:system, :integer, "POOL_SIZE", 10},
   loggers:  [{Ecto.LogEntry, :log, []}],
-  ssl: {:system, :boolean, "DATABASE_USE_SSL", true}
+  ssl: {:system, :boolean, "DATABASE_USE_SSL", true},
+  ssl_opts: [
+    cacertfile: {:system, "DATABASE_CACERTFILE"},
+    keyfile: {:system, "DATABASE_KEYFILE"},
+    certfile: {:system, "DATABASE_CERTFILE"}
+  ]
 
 config :bors, BorsNG.Endpoint,
   http: [port: {:system, "PORT"}],

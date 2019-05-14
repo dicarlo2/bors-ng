@@ -39,6 +39,11 @@ defmodule BorsNG.GitHub.Server do
     Confex.fetch_env!(:bors, :api_github_root)
   end
 
+  @spec cacertfile() :: bitstring
+  defp cacertfile do
+    Confex.fetch_env!(:bors, :cacertfile)
+  end  
+
   def init(:ok) do
     {:ok, %{}}
   end
@@ -610,7 +615,7 @@ defmodule BorsNG.GitHub.Server do
     ssl_opts = [
       verify: :verify_peer,
       verify_fun: {&:ssl_verify_hostname.verify_fun/3, check_hostname: host},
-      cacertfile: :certifi.cacertfile,
+      cacertfile: cacertfile(),
     ]
     Tesla.client [
       {Tesla.Middleware.BaseUrl, site()},
